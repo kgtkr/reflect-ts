@@ -39,10 +39,9 @@ interface SObject<T> {
     item: T
 }
 
-interface SObjectMap<K, V> {
+interface SObjectMap<T> {
     type: "object_map",
-    key: K,
-    V: V
+    v: T
 }
 
 interface SUnion<A, B> {
@@ -71,3 +70,21 @@ interface SBooleanLiteral<T extends boolean> {
     type: "boolean_literal",
     v: T
 }
+
+type V2T<T> =
+    T extends SBoolean ? boolean :
+    T extends SNumber ? number :
+    T extends SString ? string :
+    T extends SArray<infer P> ? P[] :
+    T extends SAny ? any :
+    T extends SNull ? null :
+    T extends SUndefined ? undefined :
+    T extends SSymbol ? symbol :
+    T extends SObject<infer P> ? { [K in keyof P]: V2T<P[K]> } :
+    T extends SObjectMap<infer P> ? { [key: string]: V2T<P> } :
+    //T extends SUnion<infer A, infer B> ? V2T<A> | V2T<B> :
+    //T extends SIntersection<infer A, infer B> ? V2T<A> & V2T<B> :
+    T extends SStringLiteral<infer P> ? P :
+    T extends SNumberLiteral<infer P> ? P :
+    T extends SBooleanLiteral<infer P> ? P :
+    never;
