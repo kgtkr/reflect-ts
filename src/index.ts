@@ -179,11 +179,13 @@ function booleanLiteral<T extends boolean>(t: T): SBooleanLiteral<T> {
     };
 }
 
+type V2TArray<T> = { 0: V2T<T> }[T extends any ? 0 : 0][];
+
 type V2T<T> =
     T extends SBoolean ? boolean :
     T extends SNumber ? number :
     T extends SString ? string :
-    T extends SArray<infer P> ? P[] :
+    T extends SArray<infer P> ? V2TArray<T> :
     T extends SAny ? any :
     T extends SNull ? null :
     T extends SUndefined ? undefined :
@@ -197,3 +199,49 @@ type V2T<T> =
     T extends SNumberLiteral<infer P> ? P :
     T extends SBooleanLiteral<infer P> ? P :
     never;
+
+const schema = object({
+    b: boolean,
+    n: number,
+    s: string,
+    list: array(number),
+    tup: tuple(string, number, string),
+    any: any,
+    null: nul,
+    unde: undef,
+    sym: symbol,
+    obj: object({
+        x: number
+    }),
+    map: objectMap(number),
+    union: union(stringLiteral("a"), stringLiteral("b")),
+    intersection: intersection(object({ x: number }), object({ y: number })),
+    sl: stringLiteral("x"),
+    nl: numberLiteral(-1),
+    bl: booleanLiteral(false)
+});
+type Type = V2T<typeof schema>;
+
+/*
+現在のTypeの型
+{
+    b: boolean;
+    n: number;
+    s: string;
+    list: any[];//バグ
+    tup: [string, number, string];
+    any: any;
+    null: null;
+    unde: undefined;
+    sym: symbol;
+    obj: any;//バグ
+    map: {
+        [key: string]: number;
+    };
+    union: "a" | "b";
+    intersection: any & any;//バグ
+    sl: "x";
+    nl: -1;
+    bl: false;
+}
+*/
