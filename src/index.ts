@@ -7,6 +7,30 @@ type Reverse<L extends any[], X extends any[]=[]> = {
     1: X, 0: Reverse<Tail<L>, Cons<Head<L>, X>>
 }[L extends [] ? 1 : 0];
 
+type Schema =
+    |SBoolean
+    | SNumber
+    | SString
+    | S2Array
+    | S2Tuple
+    | SAny
+    | SNull
+    | SUndefined
+    | SSymbol
+    | S2Object
+    | S2ObjectMap
+    | S2Union
+    | S2Intersection
+    | SStringLiteral<string>
+    | SNumberLiteral<number>
+    | SBooleanLiteral<boolean>;
+
+interface S2Array extends SArray<Schema> { }
+interface S2Tuple extends STuple<Schema[]> { }
+interface S2Object extends SObject<{ [key: string]: Schema }> { }
+interface S2ObjectMap extends SObjectMap<Schema> { }
+interface S2Union extends SUnion<Schema[]> { }
+interface S2Intersection extends SIntersection<Schema[]> { }
 
 interface SBoolean {
     type: "boolean"
@@ -179,7 +203,7 @@ function booleanLiteral<T extends boolean>(t: T): SBooleanLiteral<T> {
     };
 }
 
-type V2TArray<T> = { 0: V2T<T> }[T extends any ? 0 : 0][];
+type V2TArray<T> = { 0: V2T<T>, 1: never }[T extends [] ? 1 : 0][];
 
 type V2T<T> =
     T extends SBoolean ? boolean :
@@ -220,6 +244,8 @@ const schema = object({
     nl: numberLiteral(-1),
     bl: booleanLiteral(false)
 });
+const ar = array(number);
+//type T1 = V2T<typeof ar>;
 type Type = V2T<typeof schema>;
 
 /*
