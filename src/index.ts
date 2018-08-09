@@ -254,7 +254,7 @@ type Type = V2T<typeof schema>;
     b: boolean;
     n: number;
     s: string;
-    list: any[];//バグ
+    list: number[];
     tup: [string, number, string];
     any: any;
     null: null;
