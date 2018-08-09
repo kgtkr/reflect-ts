@@ -205,6 +205,8 @@ function booleanLiteral<T extends boolean>(t: T): SBooleanLiteral<T> {
 
 interface V2TArray<T> extends Array<V2T<T>> { }
 
+type V2TObject<T> = { [K in keyof T]: V2T<T[K]> };
+
 type V2T<T> =
     T extends SBoolean ? boolean :
     T extends SNumber ? number :
@@ -214,7 +216,7 @@ type V2T<T> =
     T extends SNull ? null :
     T extends SUndefined ? undefined :
     T extends SSymbol ? symbol :
-    T extends SObject<infer P> ? { [K in keyof P]: V2T<P[K]> } :
+    T extends SObject<infer P> ? V2TObject<P> :
     T extends SObjectMap<infer P> ? { [key: string]: V2T<P> } :
     T extends SUnion<infer P> ? V2TUnion<P> :
     T extends SIntersection<infer P> ? V2TIntersection<P> :
@@ -242,32 +244,9 @@ const schema = object({
     intersection: intersection(object({ x: number }), object({ y: number })),
     sl: stringLiteral("x"),
     nl: numberLiteral(-1),
-    bl: booleanLiteral(false)
+    bl: booleanLiteral(false),
+    aro: array(object({ x: number }))
 });
 const ar = array(number);
 type T1 = V2T<typeof ar>;
 type Type = V2T<typeof schema>;
-
-/*
-現在のTypeの型
-{
-    b: boolean;
-    n: number;
-    s: string;
-    list: number[];
-    tup: [string, number, string];
-    any: any;
-    null: null;
-    unde: undefined;
-    sym: symbol;
-    obj: any;//バグ
-    map: {
-        [key: string]: number;
-    };
-    union: "a" | "b";
-    intersection: any & any;//バグ
-    sl: "x";
-    nl: -1;
-    bl: false;
-}
-*/
