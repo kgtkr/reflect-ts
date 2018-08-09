@@ -13,7 +13,7 @@ const schema = R.obj({
     obj: R.obj({
         x: R.num
     }),
-    map: R.objectMap(R.num),
+    map: R.objMap(R.num),
     union: R.union(R.strl("a"), R.strl("b")),
     intersection: R.inter(R.obj({ x: R.num }), R.obj({ y: R.num })),
     sl: R.strl("x"),

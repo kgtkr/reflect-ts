@@ -6,7 +6,7 @@ export const num: S.SNumber = { type: "number" };
 
 export const str: S.SString = { type: "string" };
 
-export function arr<T>(t: T): S.SArray<T> {
+export function arr<T extends S.Schema>(t: T): S.SArray<T> {
     return {
         type: "array",
         item: t
@@ -28,21 +28,28 @@ export const undef: S.SUndefined = { type: "undefined" };
 
 export const symbol: S.SSymbol = { type: "symbol" };
 
-export function obj<T>(t: T): S.SObject<T> {
+export function obj<T extends { [key: string]: S.Schema }>(t: T): S.SObject<T> {
     return {
         type: "object",
         item: t
     };
 }
 
-export function union<T extends any[]>(...t: T): S.SUnion<T> {
+export function objMap<T extends S.Schema>(t: T): S.SObjectMap<T> {
+    return {
+        type: "object_map",
+        v: t
+    };
+}
+
+export function union<T extends S.Schema[]>(...t: T): S.SUnion<T> {
     return {
         type: "union",
         types: t
     };
 }
 
-export function inter<T extends any[]>(...t: T): S.SIntersection<T> {
+export function inter<T extends S.Schema[]>(...t: T): S.SIntersection<T> {
     return {
         type: "intersection",
         types: t

@@ -35,12 +35,12 @@ export interface SString {
     type: "string"
 }
 
-export interface SArray<T> {
+export interface SArray<T extends Schema> {
     type: "array";
     item: T
 }
 
-export interface STuple<T extends any[]> {
+export interface STuple<T extends Schema[]> {
     type: "tuple",
     types: T
 }
@@ -61,29 +61,22 @@ export interface SSymbol {
     type: "symbol"
 }
 
-export interface SObject<T> {
+export interface SObject<T extends { [key: string]: Schema }> {
     type: "object",
     item: T
 }
 
-export interface SObjectMap<T> {
+export interface SObjectMap<T extends Schema> {
     type: "object_map",
     v: T
 }
 
-export function objectMap<T>(t: T): SObjectMap<T> {
-    return {
-        type: "object_map",
-        v: t
-    };
-}
-
-export interface SUnion<T extends any[]> {
+export interface SUnion<T extends Schema[]> {
     type: "union",
     types: T
 }
 
-export interface SIntersection<T extends any[]> {
+export interface SIntersection<T extends Schema[]> {
     type: "intersection",
     types: T
 }
