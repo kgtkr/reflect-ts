@@ -1,4 +1,4 @@
-# reflect-ts-v2t
+# reflect-ts
 
 1. TSでは型情報を実行時に取得出来ない
 2. でもどうしてもしたい
