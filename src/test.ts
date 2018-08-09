@@ -1,27 +1,27 @@
 import * as R from ".";
 
-const schema = R.object({
-    b: R.boolean,
-    n: R.number,
-    s: R.string,
-    list: R.array(R.number),
-    tup: R.tuple(R.string, R.number, R.string),
+const schema = R.obj({
+    b: R.bool,
+    n: R.num,
+    s: R.str,
+    list: R.arr(R.num),
+    tup: R.tuple(R.str, R.num, R.str),
     any: R.any,
-    null: R.nul,
+    null: R.nil,
     unde: R.undef,
     sym: R.symbol,
-    obj: R.object({
-        x: R.number
+    obj: R.obj({
+        x: R.num
     }),
-    map: R.objectMap(R.number),
-    union: R.union(R.stringLiteral("a"), R.stringLiteral("b")),
-    intersection: R.intersection(R.object({ x: R.number }), R.object({ y: R.number })),
-    sl: R.stringLiteral("x"),
-    nl: R.numberLiteral(-1),
-    bl: R.booleanLiteral(false),
-    aro: R.array(R.object({ x: R.number }))
+    map: R.objectMap(R.num),
+    union: R.union(R.strl("a"), R.strl("b")),
+    intersection: R.inter(R.obj({ x: R.num }), R.obj({ y: R.num })),
+    sl: R.strl("x"),
+    nl: R.numl(-1),
+    bl: R.booll(false),
+    aro: R.arr(R.obj({ x: R.num }))
 });
 
-const ar = R.array(R.number);
+const ar = R.arr(R.num);
 type T1 = R.ToType<typeof ar>;
 type Type = R.ToType<typeof schema>;
