@@ -203,13 +203,13 @@ function booleanLiteral<T extends boolean>(t: T): SBooleanLiteral<T> {
     };
 }
 
-type V2TArray<T> = { 0: V2T<T>, 1: never }[T extends [] ? 1 : 0][];
+interface V2TArray<T> extends Array<V2T<T>> { }
 
 type V2T<T> =
     T extends SBoolean ? boolean :
     T extends SNumber ? number :
     T extends SString ? string :
-    T extends SArray<infer P> ? V2TArray<T> :
+    T extends SArray<infer P> ? V2TArray<P> :
     T extends SAny ? any :
     T extends SNull ? null :
     T extends SUndefined ? undefined :
@@ -245,7 +245,7 @@ const schema = object({
     bl: booleanLiteral(false)
 });
 const ar = array(number);
-//type T1 = V2T<typeof ar>;
+type T1 = V2T<typeof ar>;
 type Type = V2T<typeof schema>;
 
 /*
