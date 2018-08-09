@@ -12,22 +12,42 @@ interface SBoolean {
     type: "boolean"
 }
 
+const boolean: SBoolean = { type: "boolean" };
+
 interface SNumber {
     type: "number"
 }
 
+const number: SNumber = { type: "number" };
+
 interface SString {
     type: "string"
 }
+
+const string: SString = { type: "string" };
 
 interface SArray<T> {
     type: "array";
     item: T
 }
 
+function array<T>(t: T): SArray<T> {
+    return {
+        type: "array",
+        item: t
+    };
+}
+
 interface STuple<T extends any[]> {
     type: "tuple",
     types: T
+}
+
+function tuple<T extends any[]>(...t: T): STuple<T> {
+    return {
+        type: "tuple",
+        types: t
+    };
 }
 
 type V2TTuple<T extends any[], R extends any[]=[]> = {
@@ -39,22 +59,39 @@ interface SAny {
     type: "any"
 }
 
+const any: SAny = { type: "any" };
+
 
 interface SNull {
     type: "null"
 }
 
+const nul: SNull = { type: "null" };
+
+
 interface SUndefined {
     type: "undefined"
 }
+
+const undef: SUndefined = { type: "undefined" };
+
 
 interface SSymbol {
     type: "symbol"
 }
 
+const symbol: SSymbol = { type: "symbol" };
+
 interface SObject<T> {
     type: "object",
     item: T
+}
+
+function object<T>(t: T): SObject<T> {
+    return {
+        type: "object",
+        item: t
+    };
 }
 
 interface SObjectMap<T> {
@@ -62,9 +99,23 @@ interface SObjectMap<T> {
     v: T
 }
 
+function objectMap<T>(t: T): SObjectMap<T> {
+    return {
+        type: "object_map",
+        v: t
+    };
+}
+
 interface SUnion<T extends any[]> {
     type: "union",
     types: T
+}
+
+function union<T extends any[]>(...t: T): SUnion<T> {
+    return {
+        type: "union",
+        types: t
+    };
 }
 
 type V2TUnion<T extends any[]> = {
@@ -78,6 +129,13 @@ interface SIntersection<T extends any[]> {
     types: T
 }
 
+function intersection<T extends any[]>(...t: T): SIntersection<T> {
+    return {
+        type: "intersection",
+        types: t
+    };
+}
+
 type V2TIntersection<T extends any[]> = {
     0: never,
     1: V2T<Head<T>>,
@@ -89,15 +147,36 @@ interface SStringLiteral<T extends string> {
     v: T
 }
 
+function stringLiteral<T extends string>(t: T): SStringLiteral<T> {
+    return {
+        type: "string_literal",
+        v: t
+    };
+}
+
 
 interface SNumberLiteral<T extends number> {
     type: "number_literal",
     v: T
 }
 
+function numberLiteral<T extends number>(t: T): SNumberLiteral<T> {
+    return {
+        type: "number_literal",
+        v: t
+    };
+}
+
 interface SBooleanLiteral<T extends boolean> {
     type: "boolean_literal",
     v: T
+}
+
+function booleanLiteral<T extends boolean>(t: T): SBooleanLiteral<T> {
+    return {
+        type: "boolean_literal",
+        v: t
+    };
 }
 
 type V2T<T> =
