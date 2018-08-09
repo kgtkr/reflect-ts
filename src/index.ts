@@ -3,6 +3,10 @@ type Tail<L extends any[]> = ((...x: L) => void) extends ((h: any, ...rest: infe
 type Fn<R extends any[]> = (...args: R) => void
 type Fn1<H, T extends any[]> = (h: H, ...args: T) => void
 type Cons<H, T extends any[]> = Fn1<H, T> extends Fn<infer R> ? R : []
+type Reverse<L extends any[], X extends any[]=[]> = {
+    1: X, 0: Reverse<Tail<L>, Cons<Head<L>, X>>
+}[L extends [] ? 1 : 0];
+
 
 interface SBoolean {
     type: "boolean"
@@ -21,7 +25,15 @@ interface SArray<T> {
     item: T
 }
 
-//tuple
+interface STuple<T extends any[]> {
+    type: "tuple",
+    types: T
+}
+
+type V2TTuple<T extends any[], R extends any[]=[]> = {
+    0: Reverse<R>,
+    1: V2TTuple<Tail<T>, Cons<V2T<Head<T>>, R>>
+}[T extends [] ? 0 : 1];
 
 interface SAny {
     type: "any"
@@ -55,10 +67,10 @@ interface SUnion<T extends any[]> {
     types: T
 }
 
-type Union<T extends any[]> = {
+type V2TUnion<T extends any[]> = {
     0: never,
     1: V2T<Head<T>>,
-    2: V2T<Head<T>> | Union<Tail<T>>
+    2: V2T<Head<T>> | V2TUnion<Tail<T>>
 }[T extends [] ? 0 : T extends [any] ? 1 : 2];
 
 interface SIntersection<T extends any[]> {
@@ -66,10 +78,10 @@ interface SIntersection<T extends any[]> {
     types: T
 }
 
-type Intersection<T extends any[]> = {
+type V2TIntersection<T extends any[]> = {
     0: never,
     1: V2T<Head<T>>,
-    2: V2T<Head<T>> & Union<Tail<T>>
+    2: V2T<Head<T>> & V2TIntersection<Tail<T>>
 }[T extends [] ? 0 : T extends [any] ? 1 : 2];
 
 interface SStringLiteral<T extends string> {
@@ -99,8 +111,9 @@ type V2T<T> =
     T extends SSymbol ? symbol :
     T extends SObject<infer P> ? { [K in keyof P]: V2T<P[K]> } :
     T extends SObjectMap<infer P> ? { [key: string]: V2T<P> } :
-    T extends SUnion<infer P> ? Union<P> :
-    T extends SIntersection<infer P> ? Intersection<P> :
+    T extends SUnion<infer P> ? V2TUnion<P> :
+    T extends SIntersection<infer P> ? V2TIntersection<P> :
+    T extends STuple<infer P> ? V2TTuple<P> :
     T extends SStringLiteral<infer P> ? P :
     T extends SNumberLiteral<infer P> ? P :
     T extends SBooleanLiteral<infer P> ? P :
