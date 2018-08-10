@@ -1,97 +1,97 @@
-export type Schema =
-    |SBoolean
-    | SNumber
-    | SString
-    | S2Array
-    | S2Tuple
-    | SAny
-    | SNull
-    | SUndefined
-    | SSymbol
-    | S2Object
-    | S2ObjectMap
-    | S2Union
-    | S2Intersection
-    | SStringLiteral<string>
-    | SNumberLiteral<number>
-    | SBooleanLiteral<boolean>;
+export type TypeData =
+    |TBoolean
+    | TNumber
+    | TString
+    | TDArray
+    | TDTuple
+    | TAny
+    | TNull
+    | TUndefined
+    | TSymbol
+    | TDObject
+    | TDObjectMap
+    | TDUnion
+    | TDIntersection
+    | TStringLiteral<string>
+    | TNumberLiteral<number>
+    | TBooleanLiteral<boolean>;
 
-interface S2Array extends SArray<Schema> { }
-interface S2Tuple extends STuple<Schema[]> { }
-interface S2Object extends SObject<{ [key: string]: Schema }> { }
-interface S2ObjectMap extends SObjectMap<Schema> { }
-interface S2Union extends SUnion<Schema[]> { }
-interface S2Intersection extends SIntersection<Schema[]> { }
+interface TDArray extends TArray<TypeData> { }
+interface TDTuple extends TTuple<TypeData[]> { }
+interface TDObject extends TObject<{ [key: string]: TypeData }> { }
+interface TDObjectMap extends TObjectMap<TypeData> { }
+interface TDUnion extends TUnion<TypeData[]> { }
+interface TDIntersection extends TIntersection<TypeData[]> { }
 
-export interface SBoolean {
+export interface TBoolean {
     type: "boolean"
 }
 
-export interface SNumber {
+export interface TNumber {
     type: "number"
 }
 
-export interface SString {
+export interface TString {
     type: "string"
 }
 
-export interface SArray<T extends Schema> {
+export interface TArray<T extends TypeData> {
     type: "array";
     item: T
 }
 
-export interface STuple<T extends Schema[]> {
+export interface TTuple<T extends TypeData[]> {
     type: "tuple",
     types: T
 }
 
-export interface SAny {
+export interface TAny {
     type: "any"
 }
 
-export interface SNull {
+export interface TNull {
     type: "null"
 }
 
-export interface SUndefined {
+export interface TUndefined {
     type: "undefined"
 }
 
-export interface SSymbol {
+export interface TSymbol {
     type: "symbol"
 }
 
-export interface SObject<T extends { [key: string]: Schema }> {
+export interface TObject<T extends { [key: string]: TypeData }> {
     type: "object",
     item: T
 }
 
-export interface SObjectMap<T extends Schema> {
+export interface TObjectMap<T extends TypeData> {
     type: "object_map",
     v: T
 }
 
-export interface SUnion<T extends Schema[]> {
+export interface TUnion<T extends TypeData[]> {
     type: "union",
     types: T
 }
 
-export interface SIntersection<T extends Schema[]> {
+export interface TIntersection<T extends TypeData[]> {
     type: "intersection",
     types: T
 }
 
-export interface SStringLiteral<T extends string> {
+export interface TStringLiteral<T extends string> {
     type: "string_literal",
     v: T
 }
 
-export interface SNumberLiteral<T extends number> {
+export interface TNumberLiteral<T extends number> {
     type: "number_literal",
     v: T
 }
 
-export interface SBooleanLiteral<T extends boolean> {
+export interface TBooleanLiteral<T extends boolean> {
     type: "boolean_literal",
     v: T
 }
