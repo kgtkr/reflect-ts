@@ -1,5 +1,7 @@
 # reflect-ts
 
+[![Build Status](https://travis-ci.org/kgtkr/reflect-ts.svg?branch=master)](https://travis-ci.org/kgtkr/reflect-ts)
+
 * TypeScript reflect library
 * TypeScript can not acquire type information at runtime.
 * In this library, type information can be handled easily at run time by generating TypeScript type from type information.
