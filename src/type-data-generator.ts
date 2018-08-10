@@ -1,76 +1,76 @@
-import * as S from "./type-data";
+import * as T from "./type-data";
 
-export const bool: S.TBoolean = { type: "boolean" };
+export const bool: T.TBoolean = { type: "boolean" };
 
-export const num: S.TNumber = { type: "number" };
+export const num: T.TNumber = { type: "number" };
 
-export const str: S.TString = { type: "string" };
+export const str: T.TString = { type: "string" };
 
-export function arr<T extends S.TypeData>(t: T): S.TArray<T> {
+export function arr<T extends T.TypeData>(t: T): T.TArray<T> {
     return {
         type: "array",
         item: t
     };
 }
 
-export function tuple<T extends any[]>(...t: T): S.TTuple<T> {
+export function tuple<T extends any[]>(...t: T): T.TTuple<T> {
     return {
         type: "tuple",
         types: t
     };
 }
 
-export const any: S.TAny = { type: "any" };
+export const any: T.TAny = { type: "any" };
 
-export const nil: S.TNull = { type: "null" };
+export const nil: T.TNull = { type: "null" };
 
-export const undef: S.TUndefined = { type: "undefined" };
+export const undef: T.TUndefined = { type: "undefined" };
 
-export const symbol: S.TSymbol = { type: "symbol" };
+export const symbol: T.TSymbol = { type: "symbol" };
 
-export function obj<T extends { [key: string]: S.TypeData }>(t: T): S.TObject<T> {
+export function obj<T extends { [key: string]: T.TypeData }>(t: T): T.TObject<T> {
     return {
         type: "object",
         item: t
     };
 }
 
-export function objMap<T extends S.TypeData>(t: T): S.TObjectMap<T> {
+export function objMap<T extends T.TypeData>(t: T): T.TObjectMap<T> {
     return {
         type: "object_map",
         v: t
     };
 }
 
-export function union<T extends S.TypeData[]>(...t: T): S.TUnion<T> {
+export function union<T extends T.TypeData[]>(...t: T): T.TUnion<T> {
     return {
         type: "union",
         types: t
     };
 }
 
-export function inter<T extends S.TypeData[]>(...t: T): S.TIntersection<T> {
+export function inter<T extends T.TypeData[]>(...t: T): T.TIntersection<T> {
     return {
         type: "intersection",
         types: t
     };
 }
 
-export function strl<T extends string>(t: T): S.TStringLiteral<T> {
+export function strl<T extends string>(t: T): T.TStringLiteral<T> {
     return {
         type: "string_literal",
         v: t
     };
 }
 
-export function numl<T extends number>(t: T): S.TNumberLiteral<T> {
+export function numl<T extends number>(t: T): T.TNumberLiteral<T> {
     return {
         type: "number_literal",
         v: t
     };
 }
 
-export function booll<T extends boolean>(t: T): S.TBooleanLiteral<T> {
+export function booll<T extends boolean>(t: T): T.TBooleanLiteral<T> {
     return {
         type: "boolean_literal",
         v: t
