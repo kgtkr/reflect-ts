@@ -74,7 +74,7 @@ reflect(typeData);
 |`symbol`|`symbol`|`{type:"symbol"}`|
 |`obj({x:typeData...})`|`{x:T...}`|`{type:"object",values:{[key:string]:TypeData}}`|
 |`objMap(typeData)`|`{[key:string]:T}`|`{type:"object_map",value:TypeData}`|
-|`union(...typeData)`|`A|B|...`|`{type:"union",values:TypeData[]}`|
+|`union(...typeData)`|`A\|B\|...`|`{type:"union",values:TypeData[]}`|
 |`inter(...typeData)`|`A&B&...`|`{type:"intersection",values:TypeData[]}`|
 |`strl(str)`|`"xxx"`|`{type:"string_literal",value:string}`|
 |`numl(num)`|`1`|`{type:"number_literal",value:number}`|
