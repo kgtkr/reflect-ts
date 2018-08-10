@@ -37,12 +37,12 @@ export interface TString {
 
 export interface TArray<T extends TypeData> {
     type: "array";
-    item: T
+    value: T
 }
 
 export interface TTuple<T extends TypeData[]> {
     type: "tuple",
-    types: T
+    values: T
 }
 
 export interface TAny {
@@ -63,35 +63,35 @@ export interface TSymbol {
 
 export interface TObject<T extends { [key: string]: TypeData }> {
     type: "object",
-    item: T
+    values: T
 }
 
 export interface TObjectMap<T extends TypeData> {
     type: "object_map",
-    v: T
+    value: T
 }
 
 export interface TUnion<T extends TypeData[]> {
     type: "union",
-    types: T
+    values: T
 }
 
 export interface TIntersection<T extends TypeData[]> {
     type: "intersection",
-    types: T
+    values: T
 }
 
 export interface TStringLiteral<T extends string> {
     type: "string_literal",
-    v: T
+    value: T
 }
 
 export interface TNumberLiteral<T extends number> {
     type: "number_literal",
-    v: T
+    value: T
 }
 
 export interface TBooleanLiteral<T extends boolean> {
     type: "boolean_literal",
-    v: T
+    value: T
 }
