@@ -1,5 +1,5 @@
 import * as H from "./helper";
-import * as S from "./schema";
+import * as S from "./type";
 
 type V2TTuple<T extends any[], R extends any[]=[]> = {
     0: H.Reverse<R>,

@@ -1,4 +1,4 @@
-import * as S from "./schema";
+import * as S from "./type";
 
 export const bool: S.SBoolean = { type: "boolean" };
 
