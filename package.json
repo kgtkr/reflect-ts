@@ -1,6 +1,6 @@
 {
   "name": "reflect-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript reflect library",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,5 +11,16 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kgtkr/reflect-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kgtkr/reflect-ts/issues"
+  },
+  "keywords": [
+    "typescript",
+    "reflect"
+  ]
 }
