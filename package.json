@@ -1,12 +1,13 @@
 {
   "name": "reflect-ts",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "TypeScript reflect library",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "author": "",
+  "author": "kgtkr",
   "license": "MIT",
   "devDependencies": {
     "typescript": "^3.0.1"
