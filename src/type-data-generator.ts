@@ -1,4 +1,4 @@
-import * as S from "./type";
+import * as S from "./type-data";
 
 export const bool: S.SBoolean = { type: "boolean" };
 
